@@ -1,0 +1,16 @@
+{
+	"start": [
+		"bridge has been established!",
+		"hi!",
+		"hi!!!",
+		"hello!",
+		"hello!!!"
+	],
+	"close": [
+		"bridge is now closed.",
+		"bye",
+		"bye!",
+		"goodbye",
+		"goodbye!"
+	]
+}

@@ -1,0 +1,58 @@
+//                      ██  ▄███████████████████
+//    ▄███▄▄███▄   ▄██████ ████▀      ▀█  ██████   mdQt
+//   ██▀ ▀██▀ ▀██ ██▀   ██ ████  ▄██▄  █    ████   a collection of bad functions()
+//   ██   ██   ██ ██▄  ▄██ ████  ▀██▀  █  ██████
+//   ▀██  ██  ██▀  ▀███▀██ ████▄      ▀█▄   ████   this ascii art wastes 500+ KiB
+//                         ██████████▄▄███████▀
+
+// stolen from Desynq
+// 1150910977387286561 msg id in carpet discord server
+// i could probably make a better version but too lazy for now :thumbsup:
+switch(case, lambdas) -> (
+    lambda = lambdas:case;
+    if (type(lambda) == 'function', return (call(lambda)));
+);
+
+// alternative join() that preserves format()
+fjoin(delim, list) -> (
+	text = '';
+	length = length(list);
+
+	for (list, text += if (length == _i + 1, _, _ + delim));
+	return (text);
+);
+
+// TODO: improve this bullshit
+parse_md(text) -> (
+	rules = {
+		'(\\*(.*?)\\*)' -> '§o:§r',
+		'(_(.*?)_)' -> '§o:§r',
+		'(\\*\\*(.*?)\\*\\*)' -> '§l:§r',
+		'(__(.*?)__)' -> '§n:§r',
+		'(~~(.*?)~~)' -> '§m:§r'
+	};
+
+	for (pairs(rules), shit = _:0; fuck = _:1;
+		while (match = text~shit, 32,
+			fuck = replace(fuck, ':', match:1);
+			text = replace(text, escape_regex(match:0), fuck);
+		);
+	);
+
+	return (text);
+);
+
+escape_md(text) -> (
+	md = ['*', '_', '~'];
+	for (md, text = replace(text, '\\'+_, '\\\\'+_));
+	return (text);
+);
+
+escape_regex(text) -> (
+	regex = [
+		'.', '^', '$', '[', ']', '-', '(', ')',
+		'{', '}', '|', '?', '*', '+', '!',
+	];
+	for (regex, text = replace(text, '\\'+_, '\\\\'+_));
+	return (text);
+);

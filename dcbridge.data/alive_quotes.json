@@ -1,0 +1,56 @@
+[
+	"string quote",
+	{
+		"text": "range quote [[range]]",
+		"substitutes": {
+			"[[range]]": {
+				"type": "range",
+				"min": 1000,
+				"max": 1000
+			}
+		}
+	},
+	{
+		"text": "phrase quote [[phrase]]",
+		"substitutes": {
+			"[[phrase]]": {
+				"type": "phrase",
+				"phrases": [
+					"phrase 1",
+					"phrase 2",
+					"phrase 3",
+					"phrase a",
+					"phrase b",
+					"phrase c"
+				]
+			}
+		}
+	},
+	{
+		"text": "evoker_user quote [[user]]",
+		"substitutes": {
+			"[[user]]": {
+				"type": "evoker_user",
+				"display": "mention_tag"
+			}
+		}
+	},
+	{
+		"text": "random_user quote [[user]]",
+		"substitutes": {
+			"[[user]]": {
+				"type": "random_user",
+				"display": "mention_tag"
+			}
+		}
+	},
+	{
+		"text": "callback quote [[callback]]",
+		"substitutes": {
+			"[[callback]]": {
+				"type": "callback",
+				"function": "emoticon"
+			}
+		}
+	}
+]
