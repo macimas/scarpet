@@ -7,7 +7,7 @@ __config() -> {
 
 help() -> {
 	print('/unsign §7-§e turns the written book you\'re holding back into a book n quill');
-	print('this will work as long as you don\'t add formatting');
+	print('this will work as long as you don\'t add formatting. not like you\'d need to have fancy §9c§ao§bl§co§dr§es§r in your spellbook anyway')
 };
 
 unsign() -> {
