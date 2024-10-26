@@ -1,0 +1,26 @@
+{
+	"channel": "1234567890123456789",
+
+	"admins": [
+		"123456789012345678",
+		"246810121416182022"
+	],
+
+	"cmd_prefixes": [
+		"d!",
+		"d.",
+		"mc!",
+		"mc."
+	],
+	"cmd_reject_emoji": "❌",
+
+	"ignored_sys_msgs": [
+		"chat.type.text"
+	],
+
+	"travelersbackpack_tank_content": {
+		"minecraft:water": "\\🟦 Water",
+		"minecraft:lava": "\\🟧 Lava",
+		"travelersbackpack:milk_still": "\\⬜️ Milk"
+	}
+}

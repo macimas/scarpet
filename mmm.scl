@@ -1,0 +1,144 @@
+// mmm.sc - a collection of bad functions()
+
+// translate keys
+translate_key(key) -> (
+	if (!key, key = 'advancements.adventure.arbalistic.description');
+
+	nbt = encode_nbt({ 'display' -> { 'Name' -> encode_json({ 'translate' -> key }) } });
+	translation = item_display_name(['stick', 1, nbt]);
+
+	return (translation);
+);
+
+parse_xaero_waypoint(data) -> (
+	regex = 'xaero-waypoint:([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):([^:]+):?([^:\\s]+)?';
+	match = data~regex;
+
+	if (!match, return (null));
+	
+	return ({
+		'name'      -> match:0,
+		'marker'    -> match:1,
+		'x'         -> number(match:2),
+		'y'         -> number(match:3),
+		'z'         -> number(match:4),
+		'color'     -> number(match:5),
+		'use_yaw'   -> match:6,
+		'yaw'       -> number(match:7),
+		'dimension' -> match:8
+	});
+);
+
+// alternative join() that preserves format()
+fjoin(delim, list) -> (
+	text = '';
+	length = length(list);
+
+	for (list, text += if (length == _i + 1, _, _ + delim));
+	return (text);
+);
+
+// TODO: improve this bullshit
+parse_md(text) -> (
+	rules = {
+		'(\\*(.*?)\\*)' -> '§o:§r',
+		'(_(.*?)_)' -> '§o:§r',
+		'(\\*\\*(.*?)\\*\\*)' -> '§l:§r',
+		'(__(.*?)__)' -> '§n:§r',
+		'(~~(.*?)~~)' -> '§m:§r'
+	};
+
+	for (pairs(rules), shit = _:0; fuck = _:1;
+		while (match = text~shit, 32,
+			fuck = replace(fuck, ':', match:1);
+			text = replace(text, escape_regex(match:0), fuck);
+		);
+	);
+
+	return (text);
+);
+
+escape_md(text) -> (
+	md = ['*', '_', '~'];
+	for (md, text = replace(text, '\\'+_, '\\\\'+_));
+	return (text);
+);
+
+escape_regex(text) -> (
+	regex = [
+		'.', '^', '$', '[', ']', '-', '(', ')',
+		'{', '}', '|', '?', '*', '+', '!',
+	];
+	for (regex, text = replace(text, '\\'+_, '\\\\'+_));
+	return (text);
+);
+
+get_color_table() -> [
+	[0x000000, 0x000000], // black
+	[0x0000aa, 0x00002a], // dark_blue
+	[0x00aa00, 0x002a00], // dark_green
+	[0x00aaaa, 0x002a2a], // dark_aqua
+	[0xaa0000, 0x2a0000], // dark_red
+	[0xaa00aa, 0x2a002a], // dark_purple
+	[0xffaa00, 0x3e2a00], // gold
+	[0xaaaaaa, 0x2a2a2a], // gray
+	[0x555555, 0x151515], // dark_gray
+	[0x5555ff, 0x15153f], // blue
+	[0x55ff55, 0x153f15], // green
+	[0x55ffff, 0x153f3f], // aqua
+	[0xff5555, 0x3f1515], // red
+	[0xff55ff, 0x3f153f], // light_purple
+	[0xffff55, 0x3f3f15], // yellow
+	[0xffffff, 0x3f3f3f]  // white
+];
+
+// this is kinda h.
+color_code_to_hex(code, use_fg) -> (
+	color_table = get_color_table();
+
+	hex = {
+		'a' -> 10,
+		'b' -> 11,
+		'c' -> 12,
+		'd' -> 13,
+		'e' -> 14,
+		'f' -> 15 
+	};
+
+	if (hex~code, code = hex~'code');
+
+	code = number(code);
+	result = (color_table:code):use_fg;
+
+	if (result == null, return ((color_table:4):1));
+	return (result);
+);
+
+color_name_to_hex(name, use_fg) -> (
+	color_table = get_color_table();
+	color_list = [
+		'black',
+		'dark_blue',
+		'dark_green',
+		'dark_aqua',
+		'dark_red',
+		'dark_purple',
+		'gold',
+		'gray',
+		'dark_gray',
+		'blue',
+		'green',
+		'aqua',
+		'red',
+		'light_purple',
+		'yellow',
+		'white'
+	];
+
+	result = (color_table:(color_list~name)):use_fg;
+
+	if (result == null, return ((color_table:4):1));
+	return (result);
+);
+
+rgb_to_hex(rgb) -> (rgb:0 * rgb:1 * rgb:2);

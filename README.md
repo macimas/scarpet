@@ -1,3 +1,5 @@
+![carpet](./img/carpet.svg)
+
 \* - should theoretically work with most mc versions with carpet
 
 <table>
@@ -7,13 +9,17 @@
     <th>targets</th>
   </tr>
 
-  <!--
+  <tr>
+    <td>mmm (lib)</td>
+    <td>collection of bad functions()</td>
+    <td>*</td>
+  </tr>
+
   <tr>
     <td>dcmc</td>
-    <td>bloated dc <-> mc bridge, made with Discarpet</td>
+    <td>(wip) bloated dc <-> mc bridge, made with Discarpet 1.5.3</td>
     <td>1.20.1</td>
   </tr>
-  -->
   
   <tr>
     <td>afksp</td>
